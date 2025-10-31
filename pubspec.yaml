@@ -11,6 +11,9 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+  intl: any
+  dart_date: ^1.2.2
+  shared_preferences: ^2.0.17
   get: ^4.6.6
   get_storage: ^2.1.1
   auto_size_text: ^3.0.0

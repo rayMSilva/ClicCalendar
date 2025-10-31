@@ -1,57 +1,86 @@
 import 'package:fitapp/app/data/models/base.model.dart';
-import 'package:fitapp/app/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fitapp/app/modules/login/repository.dart';
+import 'package:fitapp/app/routes/pages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
   final LoginRepository _repository;
+  final loginFormKey = GlobalKey<FormState>();
 
   LoginController({required LoginRepository repository}) : _repository = repository;
 
   RxList<UserColaborador> users = <UserColaborador>[].obs;
 
   RxBool loading = false.obs;
+  RxBool obscureText = true.obs;
 
-  final Rx<TextEditingController> userController = TextEditingController().obs;
-  final Rx<FocusNode> userFocus = FocusNode().obs;
+  Rx<TextEditingController> userController = TextEditingController().obs;
+  Rx<TextEditingController> passwordController = TextEditingController().obs;
 
-  final Rx<TextEditingController> passwordController = TextEditingController().obs;
-  final Rx<FocusNode> passwordFocus = FocusNode().obs;
+  Rx<FocusNode> userFocus = FocusNode().obs;
+  Rx<FocusNode> passwordFocus = FocusNode().obs;
 
   @override
-  void onInit() async {
-    loading(true);
-    await fetchAllBases();
+  void onInit() {
     super.onInit();
-    loading(false);
+    _initData();
+  }
+
+  Future<void> _initData() async {
+    try {
+      loading(true);
+      await fetchAllBases();
+    } catch (e) {
+      Get.snackbar('Erro', 'Erro ao carregar dados iniciais: $e');
+    } finally {
+      loading(false);
+    }
   }
 
   @override
   void onClose() {
     userController.value.dispose();
     passwordController.value.dispose();
+    userFocus.value.dispose();
+    passwordFocus.value.dispose();
     super.onClose();
   }
+
+  void handleObscureText() => obscureText.value = !obscureText.value;
 
   Future<void> fetchAllBases() async {
     try {
       users.value = await _repository.fetchAllBases();
     } catch (e) {
-      rethrow;
+      throw Exception('Erro ao buscar bases: $e');
     }
   }
 
   Future<void> entrar() async {
+    if (!loginFormKey.currentState!.validate()) return;
+
     try {
       loading(true);
-      if (userController.value.text == users[0].user && passwordController.value.text == users[0].password) {
-        Get.toNamed(Routes.dashboard);
+
+      if (userController.value.text.isEmpty || passwordController.value.text.isEmpty) {
+        throw Exception('Preencha todos os campos');
       }
-      loading(false);
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('kToken', 'token-exemplo');
+
+      Get.offAllNamed(Routes.dashboard);
     } catch (e) {
+      Get.snackbar(
+        'Erro',
+        'Falha ao fazer login: ${e.toString()}',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    } finally {
       loading(false);
-      rethrow;
     }
   }
 }

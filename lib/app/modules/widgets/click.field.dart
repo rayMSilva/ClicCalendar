@@ -7,6 +7,8 @@ enum FieldStyle { normal, outlined, elevated }
 
 class ClicField extends StatefulWidget {
   final String? label;
+  final Icon? icon;
+  final VoidCallback? rightIconFunction;
   final String? hint;
   final FocusNode? focusNode;
   final TextInputType keyboardType;
@@ -20,6 +22,7 @@ class ClicField extends StatefulWidget {
   final Function()? onEditingComplete;
   final Function(String)? onChanged;
   final FieldStyle style;
+  final bool? ignorePoiter;
 
   const ClicField({
     Key? key,
@@ -37,6 +40,9 @@ class ClicField extends StatefulWidget {
     this.onDoubleTap,
     this.onChanged,
     this.style = FieldStyle.normal,
+    this.icon,
+    this.rightIconFunction,
+    this.ignorePoiter = false,
   }) : super(key: key);
 
   @override
@@ -69,6 +75,12 @@ class _ClicFieldState extends State<ClicField> {
           ),
         ],
       ),
+      suffixIcon: widget.icon != null
+          ? IconButton(
+              onPressed: widget.rightIconFunction,
+              icon: widget.icon ?? const SizedBox.shrink(),
+            )
+          : null,
       hintText: widget.hint,
       filled: true,
       fillColor: switch (widget.style) {
@@ -143,6 +155,7 @@ class _ClicFieldState extends State<ClicField> {
                   elevation: widget.style == FieldStyle.elevated ? 3 : 0,
                   borderRadius: BorderRadius.circular(radius),
                   child: IgnorePointer(
+                    ignoring: widget.ignorePoiter!,
                     child: TextFormField(
                       focusNode: widget.focusNode,
                       style: const TextStyle(height: 1),
