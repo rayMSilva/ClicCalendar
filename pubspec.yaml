@@ -1,0 +1,52 @@
+name: fitapp
+description: "A new Flutter project."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.2.3 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  get: ^4.6.6
+  get_storage: ^2.1.1
+  auto_size_text: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/google_fonts/
+    - pubspec.yaml
+
+  fonts:
+    - family: Epilogue
+      fonts:
+        - asset: assets/google_fonts/Epilogue-Regular.ttf
+        - asset: assets/google_fonts/Epilogue-Black.ttf
+          weight: 900
+        - asset: assets/google_fonts/Epilogue-ExtraBold.ttf
+          weight: 800
+        - asset: assets/google_fonts/Epilogue-Bold.ttf
+          weight: 700
+        - asset: assets/google_fonts/Epilogue-SemiBold.ttf
+          weight: 600
+        - asset: assets/google_fonts/Epilogue-Medium.ttf
+          weight: 500
+        - asset: assets/google_fonts/Epilogue-Regular.ttf
+          weight: 400
+        - asset: assets/google_fonts/Epilogue-Light.ttf
+          weight: 300
+        - asset: assets/google_fonts/Epilogue-ExtraLight.ttf
+          weight: 200
+        - asset: assets/google_fonts/Epilogue-Thin.ttf
+          weight: 100
