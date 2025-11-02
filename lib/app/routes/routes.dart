@@ -1,10 +1,16 @@
 part of 'pages.dart';
 
 abstract class Routes {
-  static const login = _Paths.login;
   static const home = _Paths.home;
   static const esqueciSenha = _Paths.login + _Paths.esqueciSenha;
+  static const login = _Paths.login;
   static const dashboard = _Paths.dashboard;
+  static const novoHorario = _Paths.novoHorario;
+  static const listarAgendas = _Paths.listarAgendas;
+  static const pesquisas = _Paths.pesquisas;
+  static const cadastro = _Paths.cadastro;
+  static const metricas = _Paths.metricas;
+  static const sincronizacao = _Paths.sincronizacao;
 }
 
 abstract class _Paths {
@@ -12,4 +18,10 @@ abstract class _Paths {
   static const home = '/home';
   static const esqueciSenha = '/esqueci-senha';
   static const dashboard = '/dashboard';
+  static const novoHorario = '/novo-horario';
+  static const listarAgendas = '/listar-agendas';
+  static const pesquisas = '/pesquisas';
+  static const cadastro = '/cadastro';
+  static const metricas = '/metricas';
+  static const sincronizacao = '/sincronizacao';
 }

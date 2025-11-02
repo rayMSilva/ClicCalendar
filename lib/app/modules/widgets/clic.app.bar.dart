@@ -2,8 +2,11 @@ import 'package:fitapp/app/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DashAppBar extends StatelessWidget {
-  const DashAppBar({super.key});
+class ClicAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const ClicAppBar({super.key});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
