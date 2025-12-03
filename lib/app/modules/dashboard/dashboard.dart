@@ -1,5 +1,6 @@
 import 'package:fitapp/app/modules/widgets/clic.app.bar.dart';
 import 'package:fitapp/app/modules/widgets/clic.card.simples.dart';
+import 'package:fitapp/app/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fitapp/app/modules/dashboard/controller.dart';
@@ -13,7 +14,14 @@ class DashboardPage extends GetView<DashboardController> {
       backgroundColor: Get.theme.colorScheme.primary,
       endDrawer: const Drawer(),
       resizeToAvoidBottomInset: false,
-      appBar: const ClicAppBar(),
+      appBar: ClicAppBar(
+        title: 'clicCalendar',
+        titleIcon: Icons.calendar_today,
+        iconleading: Icons.arrow_back_ios_sharp,
+        leadingFunction: () {
+          Get.toNamed(Routes.login);
+        },
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

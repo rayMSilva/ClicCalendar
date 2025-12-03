@@ -11,6 +11,7 @@ abstract class Routes {
   static const cadastro = _Paths.cadastro;
   static const metricas = _Paths.metricas;
   static const sincronizacao = _Paths.sincronizacao;
+  static const configuracao = _Paths.configuracao;
 }
 
 abstract class _Paths {
@@ -24,4 +25,5 @@ abstract class _Paths {
   static const cadastro = '/cadastro';
   static const metricas = '/metricas';
   static const sincronizacao = '/sincronizacao';
+  static const configuracao = '/configuracao';
 }

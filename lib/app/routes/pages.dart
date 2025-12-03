@@ -1,5 +1,7 @@
 import 'package:fitapp/app/modules/cadastro/binding.dart';
 import 'package:fitapp/app/modules/cadastro/cadastro.dart';
+import 'package:fitapp/app/modules/configuracao.host/binding.dart';
+import 'package:fitapp/app/modules/configuracao.host/configuracao.dart';
 import 'package:fitapp/app/modules/dashboard/binding.dart';
 import 'package:fitapp/app/modules/dashboard/dashboard.dart';
 import 'package:fitapp/app/modules/listar.agenda/binding.dart';
@@ -59,6 +61,11 @@ abstract class Pages {
       name: Routes.sincronizacao,
       page: () => const SincronizacaoPage(),
       binding: SincronizacaoBinding(),
+    ),
+    GetPage(
+      name: Routes.configuracao,
+      page: () => const ConfiguracaoPage(),
+      binding: ConfiguracaoBinding(),
     )
     // GetPage(
     //   name: Routes.home,

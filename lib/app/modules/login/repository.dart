@@ -1,23 +1,19 @@
-import 'package:fitapp/app/data/models/base.model.dart';
-import 'package:fitapp/app/data/providers/base.provider.dart';
+import 'package:fitapp/app/data/models/usuario.model.dart';
+import 'package:fitapp/app/data/providers/usuario.provider.dart';
 
 abstract interface class ILoginRepository {
-  Future<List<UserColaborador>> fetchAllBases();
+  Future<void> login(Usuario usuario);
 }
 
-class LoginRepository implements ILoginRepository {
-  final BaseProvider _baseProvider;
+class LoginRepository extends ILoginRepository {
+  final UsuarioProvider usuarioProvider;
 
   LoginRepository({
-    required BaseProvider baseProvider,
-  }) : _baseProvider = baseProvider;
+    required UsuarioProvider usuarioProvider,
+  }) : usuarioProvider = usuarioProvider;
 
   @override
-  Future<List<UserColaborador>> fetchAllBases() {
-    try {
-      return _baseProvider.fetchAllBases();
-    } catch (e) {
-      rethrow;
-    }
+  Future<void> login(Usuario usuario) async {
+    return await usuarioProvider.login(usuario: usuario);
   }
 }

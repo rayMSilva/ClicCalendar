@@ -17,6 +17,10 @@ dependencies:
   get: ^4.6.6
   get_storage: ^2.1.1
   auto_size_text: ^3.0.0
+  http: ^0.13.5
+  flutter_dotenv: ^5.1.0
+  sqflite: ^2.2.8+4
+  path: ^1.9.0
 
 dev_dependencies:
   flutter_test:
@@ -30,6 +34,7 @@ flutter:
     - assets/images/
     - assets/google_fonts/
     - pubspec.yaml
+    - .env
 
   fonts:
     - family: Epilogue

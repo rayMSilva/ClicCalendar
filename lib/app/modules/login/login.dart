@@ -1,4 +1,5 @@
 import 'package:fitapp/app/core/utils/validator.fields.dart';
+import 'package:fitapp/app/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fitapp/app/modules/widgets/click.field.dart';
@@ -19,7 +20,9 @@ class LoginPage extends GetView<LoginController> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.configuracao);
+              },
               child: const Center(
                 child: Icon(Icons.settings),
               ),
@@ -27,6 +30,7 @@ class LoginPage extends GetView<LoginController> {
           ],
         ),
       ),
+      backgroundColor: Colors.white,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -54,8 +58,11 @@ class LoginPage extends GetView<LoginController> {
                         keyboardType: TextInputType.number,
                         controller: controller.userController.value,
                         focusNode: controller.userFocus.value,
-                        style: FieldStyle.outlined,
+                        style: FieldStyle.elevated,
                         validator: (value) => FieldValidator.validateIfEmpty(value),
+                        onEditingComplete: () {
+                          controller.userFocus.value.unfocus();
+                        },
                       ),
                     ),
                     SizedBox(
@@ -66,19 +73,21 @@ class LoginPage extends GetView<LoginController> {
                       width: displayWidth / 1.4,
                       child: Obx(
                         () => ClicField(
-                          label: "Senha",
-                          keyboardType: TextInputType.text,
-                          controller: controller.passwordController.value,
-                          focusNode: controller.passwordFocus.value,
-                          style: FieldStyle.outlined,
-                          hide: controller.obscureText.value,
-                          icon: Icon(
-                            controller.obscureText.value ? Icons.visibility : Icons.visibility_off,
-                            color: Get.theme.colorScheme.tertiary,
-                          ),
-                          rightIconFunction: controller.handleObscureText,
-                          validator: (value) => FieldValidator.validateIfEmpty(value),
-                        ),
+                            label: "Senha",
+                            keyboardType: TextInputType.text,
+                            controller: controller.passwordController.value,
+                            focusNode: controller.passwordFocus.value,
+                            style: FieldStyle.elevated,
+                            hide: controller.obscureText.value,
+                            rigthIcon: Icon(
+                              controller.obscureText.value ? Icons.visibility : Icons.visibility_off,
+                              color: Get.theme.colorScheme.tertiary,
+                            ),
+                            rightIconFunction: controller.handleObscureText,
+                            validator: (value) => FieldValidator.validateIfEmpty(value),
+                            onEditingComplete: () {
+                              controller.passwordFocus.value.unfocus();
+                            }),
                       ),
                     ),
                     const SizedBox(height: 40),

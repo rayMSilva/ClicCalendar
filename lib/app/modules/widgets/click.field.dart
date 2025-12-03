@@ -7,7 +7,7 @@ enum FieldStyle { normal, outlined, elevated }
 
 class ClicField extends StatefulWidget {
   final String? label;
-  final Icon? icon;
+  final Icon? rigthIcon;
   final VoidCallback? rightIconFunction;
   final String? hint;
   final FocusNode? focusNode;
@@ -26,21 +26,21 @@ class ClicField extends StatefulWidget {
 
   const ClicField({
     Key? key,
-    this.label,
+    required this.label,
     this.hint,
-    this.focusNode,
+    required this.focusNode,
     this.keyboardType = TextInputType.text,
-    this.controller,
+    required this.controller,
     this.enabled = true,
     this.maxLenght = 60,
     this.hide,
     this.validator,
-    this.onEditingComplete,
+    required this.onEditingComplete,
     this.onTap,
     this.onDoubleTap,
     this.onChanged,
     this.style = FieldStyle.normal,
-    this.icon,
+    this.rigthIcon,
     this.rightIconFunction,
     this.ignorePoiter = false,
   }) : super(key: key);
@@ -75,10 +75,10 @@ class _ClicFieldState extends State<ClicField> {
           ),
         ],
       ),
-      suffixIcon: widget.icon != null
+      suffixIcon: widget.rigthIcon != null
           ? IconButton(
               onPressed: widget.rightIconFunction,
-              icon: widget.icon ?? const SizedBox.shrink(),
+              icon: widget.rigthIcon ?? const SizedBox.shrink(),
             )
           : null,
       hintText: widget.hint,
