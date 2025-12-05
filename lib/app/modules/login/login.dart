@@ -1,4 +1,5 @@
 import 'package:fitapp/app/core/utils/validator.fields.dart';
+import 'package:fitapp/app/modules/widgets/clic.button.dart' show ClicButton;
 import 'package:fitapp/app/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,6 +40,7 @@ class LoginPage extends GetView<LoginController> {
             child: Form(
               key: controller.loginFormKey,
               child: Container(
+                height: double.maxFinite,
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -97,21 +99,11 @@ class LoginPage extends GetView<LoginController> {
                         height: 50,
                         child: controller.loading.value
                             ? const Center(child: CircularProgressIndicator())
-                            : ElevatedButton(
+                            : ClicButton(
                                 onPressed: controller.entrar,
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppTheme.lightTheme.colorScheme.primary,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                ),
-                                child: const Text(
-                                  'Entrar',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                  ),
-                                ),
+                                title: 'Entrar',
+                                backgroundColor: AppTheme.lightTheme.colorScheme.primary,
+                                minimumSize: Size(displayWidth / 1.6, 50),
                               ),
                       ),
                     ),

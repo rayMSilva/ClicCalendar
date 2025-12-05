@@ -60,6 +60,8 @@ class LoginController extends GetxController {
         mensagem = 'Credenciais inválidas';
       } else if (e.toString().contains('Preencha')) {
         mensagem = e.toString().replaceAll('Exception:', '').trim();
+      } else if (e.toString().contains('Tempo')) {
+        mensagem = 'Tempo de conexão esgotado. Verifique sua conexão com a internet.';
       }
 
       Get.snackbar(

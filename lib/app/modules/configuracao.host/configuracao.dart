@@ -1,5 +1,6 @@
 import 'package:fitapp/app/core/utils/validator.fields.dart';
 import 'package:fitapp/app/modules/widgets/clic.app.bar.dart';
+import 'package:fitapp/app/modules/widgets/clic.button.dart';
 import 'package:fitapp/app/modules/widgets/click.field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -88,22 +89,11 @@ class ConfiguracaoPage extends GetView<ConfiguracaoController> {
                     Obx(() {
                       return controller.loading.value
                           ? const CircularProgressIndicator()
-                          : ElevatedButton(
+                          : ClicButton(
                               onPressed: controller.salvarConfiguracoesHost,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Get.theme.colorScheme.primary,
-                                minimumSize: Size(displayWidth / 1.5, 50),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              child: const Text(
-                                "salvar",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                              ),
+                              title: "salvar",
+                              backgroundColor: Get.theme.colorScheme.primary,
+                              minimumSize: Size(displayWidth / 1.5, 50),
                             ).marginOnly(top: 150);
                     })
                   ],

@@ -1,17 +1,42 @@
 import 'package:flutter/material.dart';
 
-enum ButtonType { primary, secondary, tertiary }
+class ClicButton extends StatefulWidget {
+  final VoidCallback? onPressed;
+  final String? title;
+  final Size? minimumSize;
+  final Color backgroundColor;
 
-class FitButton extends StatefulWidget {
-  const FitButton({super.key});
+  const ClicButton({
+    super.key,
+    required this.onPressed,
+    required this.title,
+    required this.backgroundColor,
+    this.minimumSize,
+  });
 
   @override
-  State<FitButton> createState() => _FitButtonState();
+  State<ClicButton> createState() => _ClicButtonState();
 }
 
-class _FitButtonState extends State<FitButton> {
+class _ClicButtonState extends State<ClicButton> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ElevatedButton(
+      onPressed: widget.onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: widget.backgroundColor,
+        minimumSize: widget.minimumSize,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+      child: Text(
+        widget.title!,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 18,
+        ),
+      ),
+    );
   }
 }
