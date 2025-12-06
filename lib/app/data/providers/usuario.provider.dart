@@ -32,6 +32,16 @@ class UsuarioProvider implements IUsuarioProvider {
     }
   }
 
+  Future<bool> hasSavedCredentials() async {
+    bool ret = false;
+    if (await getTokenSharedPreferences() == null) {
+      return ret;
+    }
+    final usuarioJson = await getUsuarioSharedPreferences();
+    ret = usuarioJson != null;
+    return ret;
+  }
+
   // Future<Usuario> cadastrar(Usuario usuario) async {
   //   final response = await api.postRequest('/auth/usuarios', usuario.toJson());
   //   return Usuario.fromJson(response);

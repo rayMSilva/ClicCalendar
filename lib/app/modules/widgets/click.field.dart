@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 enum FieldStyle { normal, outlined, elevated }
@@ -23,6 +24,7 @@ class ClicField extends StatefulWidget {
   final Function(String)? onChanged;
   final FieldStyle style;
   final bool? ignorePoiter;
+  final List<TextInputFormatter>? inputFormatters;
 
   const ClicField({
     Key? key,
@@ -43,6 +45,7 @@ class ClicField extends StatefulWidget {
     this.rigthIcon,
     this.rightIconFunction,
     this.ignorePoiter = false,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -157,6 +160,7 @@ class _ClicFieldState extends State<ClicField> {
                   child: IgnorePointer(
                     ignoring: widget.ignorePoiter!,
                     child: TextFormField(
+                      inputFormatters: widget.inputFormatters,
                       focusNode: widget.focusNode,
                       style: const TextStyle(height: 1),
                       cursorColor: Get.theme.colorScheme.primary,

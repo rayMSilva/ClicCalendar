@@ -19,6 +19,25 @@ setTokenSharedPreferences(token) async {
   prefs.setString('kToken', token);
 }
 
+Future<String?> getTokenSharedPreferences() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('kToken');
+}
+
+Future<Map<String, dynamic>?> getUsuarioSharedPreferences() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? userName = prefs.getString('kUsuario');
+  String? senha = prefs.getString('kSenha');
+
+  if (userName != null && senha != null) {
+    return {
+      'userName': userName,
+      'senha': senha,
+    };
+  }
+  return null;
+}
+
 cleanUsuarioSharedPreferences() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString('kToken', '');

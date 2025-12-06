@@ -1,5 +1,7 @@
 import 'package:fitapp/app/clic.calendar.dart';
 import 'package:fitapp/app/core/dados.dart';
+import 'package:fitapp/app/data/providers/usuario.provider.dart';
+import 'package:fitapp/app/data/services/shared.preferences.dart';
 import 'package:fitapp/app/data/services/storage.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -13,5 +15,24 @@ void main() async {
   await Dados.instance.init();
   Get.put<StorageService>(StorageService());
 
-  runApp(const ClicCalendar());
+  String? initialRoute = await defineInitialRoute();
+
+  runApp(ClicCalendar(
+    initialRoute: initialRoute,
+  ));
+}
+
+Future<String> defineInitialRoute() async {
+  UsuarioProvider usuarioProvider = UsuarioProvider();
+  String initialRoute = '/login';
+
+  if (await usuarioProvider.hasSavedCredentials()) {
+    final usuarioJson = await getUsuarioSharedPreferences();
+    if (usuarioJson != null) {
+      Dados.instance.usuario.userName = usuarioJson['userName'];
+      Dados.instance.usuario.senha = usuarioJson['senha'];
+      initialRoute = '/dashboard';
+    }
+  }
+  return initialRoute;
 }

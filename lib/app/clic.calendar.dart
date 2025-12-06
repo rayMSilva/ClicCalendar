@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ClicCalendar extends StatelessWidget {
-  const ClicCalendar({super.key});
+  final String? initialRoute;
+  const ClicCalendar({super.key, required this.initialRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class ClicCalendar extends StatelessWidget {
       theme: AppTheme.lightTheme,
       title: 'BaseApp',
       getPages: Pages.pages,
-      initialRoute: Routes.login,
+      initialRoute: initialRoute,
       locale: const Locale('pt', 'BR'),
     );
   }

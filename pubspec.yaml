@@ -21,6 +21,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   sqflite: ^2.2.8+4
   path: ^1.9.0
+  br_validators: ^2.0.4
 
 dev_dependencies:
   flutter_test:

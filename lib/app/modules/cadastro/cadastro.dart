@@ -1,10 +1,13 @@
+import 'package:br_validators/masks/br_masks.dart';
 import 'package:fitapp/app/core/theme/app.theme.dart';
 import 'package:fitapp/app/modules/widgets/clic.app.bar.dart';
 import 'package:fitapp/app/modules/widgets/clic.button.dart';
 import 'package:fitapp/app/modules/widgets/click.field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fitapp/app/modules/cadastro/controller.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class CadastroPage extends GetView<CadastroController> {
   const CadastroPage({Key? key}) : super(key: key);
@@ -22,13 +25,6 @@ class CadastroPage extends GetView<CadastroController> {
           Get.back();
         },
       ),
-      floatingActionButton: ClicButton(
-        onPressed: () {},
-        title: "salvar",
-        backgroundColor: AppTheme.lightTheme.colorScheme.primary,
-        minimumSize: Size(MediaQuery.of(context).size.width / 1.5, 50),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
@@ -41,6 +37,22 @@ class CadastroPage extends GetView<CadastroController> {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      const SizedBox(height: 50),
+                      Row(
+                        children: [
+                          Text(
+                            "Criação de Usuário",
+                            style: Get.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, color: Get.theme.colorScheme.secondary),
+                          ),
+                          const CircleAvatar(
+                            child: Icon(
+                              Icons.person_add,
+                              color: Colors.white,
+                            ),
+                          ).marginOnly(left: 20),
+                        ],
+                      ),
+                      const SizedBox(height: 50),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -85,7 +97,7 @@ class CadastroPage extends GetView<CadastroController> {
                             focusNode: controller.emailFocusNode.value,
                             controller: controller.emailTextController.value,
                             onEditingComplete: () {},
-                            keyboardType: TextInputType.text,
+                            keyboardType: TextInputType.emailAddress,
                             style: FieldStyle.elevated,
                           ),
                           const SizedBox(height: 16),
@@ -98,27 +110,92 @@ class CadastroPage extends GetView<CadastroController> {
                             flex: 1,
                             child: ClicField(
                               label: 'telefone *',
+                              inputFormatters: [BRMasks.mobilePhone],
                               focusNode: controller.telefoneFocusNode.value,
                               controller: controller.telefoneTextController.value,
                               onEditingComplete: () {},
-                              keyboardType: TextInputType.text,
+                              keyboardType: TextInputType.number,
                               style: FieldStyle.elevated,
                             ),
                           ),
-                          const SizedBox(height: 16),
-                          Flexible(
-                            flex: 1,
-                            child: ClicField(
-                              label: 'permissão *',
-                              focusNode: controller.permissaoFocusNode.value,
-                              controller: controller.permissaoTextController.value,
-                              onEditingComplete: () {},
-                              keyboardType: TextInputType.text,
-                              style: FieldStyle.elevated,
-                            ).marginOnly(left: 20),
-                          ),
                         ],
                       ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 16),
+                        child: Material(
+                          elevation: 3,
+                          borderRadius: BorderRadius.circular(8),
+                          child: DropdownButtonFormField<String>(
+                            dropdownColor: Colors.white,
+                            initialValue: controller.permissaoTextController.value.text.isNotEmpty ? controller.permissaoTextController.value.text : null,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                              alignLabelWithHint: true,
+                              label: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Flexible(
+                                    child: AutoSizeText(
+                                      'permissão',
+                                      maxLines: 1,
+                                      style: Get.theme.textTheme.titleMedium?.copyWith(
+                                        color: Get.theme.colorScheme.tertiary,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                      minFontSize: 4,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            items: const [
+                              DropdownMenuItem(
+                                value: '',
+                                child: Text(
+                                  'selecione',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                              DropdownMenuItem(
+                                value: 'funcionario',
+                                child: Text(
+                                  'Funcionário',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                              DropdownMenuItem(
+                                value: 'Administrador',
+                                child: Text(
+                                  'Administrador',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ],
+                            onChanged: (v) {
+                              if (v != null) controller.permissaoTextController.value.text = v;
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 60,
+                      ),
+                      ClicButton(
+                        onPressed: () {},
+                        title: "salvar",
+                        backgroundColor: AppTheme.lightTheme.colorScheme.primary,
+                        minimumSize: Size(MediaQuery.of(context).size.width / 1.5, 50),
+                      )
                     ],
                   );
                 },
